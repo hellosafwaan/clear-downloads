@@ -11,3 +11,12 @@ def calc_btwn_days(d1, d2):
     date2 = date(d2.year, d2.month, d2.day)
     return (date2 - date1).days
 
+def file_remove_check(no_of_days, file):
+    if no_of_days >= details["timeLimit"]:
+        if os.path.isfile(file):
+            os.remove(file)
+        else:
+            pass
+            rmtree(file)
+    else:
+        return None
