@@ -20,3 +20,22 @@ def file_remove_check(no_of_days, file):
             rmtree(file)
     else:
         return None
+def main():
+    folderPath = details["folderPath"]
+    os.chdir(folderPath)
+    folderContent = os.listdir()
+    
+    count = len(folderContent)
+    i = -1 
+    while count != 0:
+        i += 1
+        file = folderContent[0]
+        currentDate = date.today()
+        fileCreationDate = (date.fromtimestamp(os.stat(file).st_ctime))
+        daysBetween = calc_btwn_days(fileCreationDate, currentDate)
+        file_remove_check(daysBetween, file)
+        folderContent.pop(0)
+        count = len(folderContent)
+        
+if __name__ == '__main__':
+    main()
