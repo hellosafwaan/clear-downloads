@@ -4,7 +4,8 @@ from datetime import date
 from shutil import rmtree
 import stat
 
-details = { "timeLimit" : 5}
+details = { "timeLimit" : 5,
+"historyPath": 'your-path'}
 
 def calc_btwn_days(d1, d2):
     date1 = date(d1.year, d1.month, d1.day)
@@ -15,9 +16,12 @@ def file_remove_check(no_of_days, file):
     if no_of_days >= details["timeLimit"]:
         if os.path.isfile(file):
             os.remove(file)
+            with open(details["historyPath"], 'a') as histFile:
+                histFile.write("{},{},file\n".format(date.today(), file))
         else:
-            pass
             rmtree(file)
+            with open(details["historyPath"], 'a') as histFile:
+                histFile.write("{},{},Folder\n".format(date.today(), file))
     else:
         return None
 def main():
